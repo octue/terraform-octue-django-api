@@ -8,11 +8,12 @@ locals {
 
 
 output "django_json" {
-  description = "The Django settings for the environment"
   value       = jsonencode(local.django)
+  description = "The Django settings for the environment."
 }
 
 
 output "server_service_account" {
-  value = google_service_account.server_service_account
+  value       = google_service_account.server_service_account
+  description = "The service account for running the Django server."
 }
