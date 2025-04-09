@@ -7,7 +7,7 @@
 # Should you accidentally do so, add a suffix to the name (like -default-0) and update environments to point to the new
 # name, until 7 days has elapsed and you're able to revert.
 locals {
-  queue_suffix = var.tasks_queue_suffix != null && var.tasks_queue_suffix != "" ? "-${var.tasks_queue_suffix}" : ""
+  queue_suffix = var.tasks_queue_name_suffix != null && var.tasks_queue_name_suffix != "" ? "-${var.tasks_queue_name_suffix}" : ""
 }
 
 

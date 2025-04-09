@@ -34,7 +34,7 @@ variable "secret_names" {
 }
 
 
-variable "tasks_queue_suffix" {
+variable "tasks_queue_name_suffix" {
   type    = string
   default = ""
 }
