@@ -22,7 +22,7 @@ resource "google_compute_backend_service" "load_balancer_backend" {
   backend {
     balancing_mode               = "UTILIZATION"
     capacity_scaler              = 1
-    group = google_compute_region_network_endpoint_group.load_balancer_neg.self_link
+    group                        = google_compute_region_network_endpoint_group.load_balancer_neg.self_link
     max_connections              = 0
     max_connections_per_endpoint = 0
     max_connections_per_instance = 0
@@ -43,8 +43,8 @@ resource "google_compute_global_address" "ip" {
 
 
 resource "google_compute_managed_ssl_certificate" "ssl" {
-  name        = "${var.resource_affix}--ssl--${var.environment}"
-  project     = var.project
+  name    = "${var.resource_affix}--ssl--${var.environment}"
+  project = var.project
 
   managed {
     domains = [
@@ -85,8 +85,8 @@ resource "google_compute_url_map" "http_redirect" {
     strip_query            = false
   }
 
-  name    = "${google_compute_global_forwarding_rule.load_balancer_frontend.name}-redirect"
-  project = var.project
+  name        = "${google_compute_global_forwarding_rule.load_balancer_frontend.name}-redirect"
+  project     = var.project
   description = "Automatically generated HTTP to HTTPS redirect for the ${google_compute_global_forwarding_rule.load_balancer_frontend.name} forwarding rule"
 }
 

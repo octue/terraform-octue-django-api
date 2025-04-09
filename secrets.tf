@@ -1,5 +1,5 @@
 resource "google_secret_manager_secret" "secrets" {
-  for_each = setunion(var.secret_names, ["google-application-credentials"])
+  for_each  = setunion(var.secret_names, ["google-application-credentials"])
   secret_id = "${var.resource_affix}--${each.value}--${var.environment}"
   replication {
     auto {}
@@ -8,9 +8,9 @@ resource "google_secret_manager_secret" "secrets" {
 
 
 resource "google_secret_manager_secret_iam_member" "service_account_secret_access" {
-  for_each = google_secret_manager_secret.secrets
-  secret_id = each.value.secret_id
-  role      = "roles/secretmanager.secretAccessor"
-  member    = "serviceAccount:${google_service_account.server_service_account.email}"
+  for_each   = google_secret_manager_secret.secrets
+  secret_id  = each.value.secret_id
+  role       = "roles/secretmanager.secretAccessor"
+  member     = "serviceAccount:${google_service_account.server_service_account.email}"
   depends_on = [google_secret_manager_secret.secrets]
 }

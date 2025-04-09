@@ -3,7 +3,7 @@ resource "google_cloud_run_v2_service" "server" {
   project  = var.project
   location = var.region
 
-  ingress = "INGRESS_TRAFFIC_ALL"
+  ingress             = "INGRESS_TRAFFIC_ALL"
   deletion_protection = var.deletion_protection
 
   template {
@@ -26,7 +26,7 @@ resource "google_cloud_run_v2_service" "server" {
         secret = "${var.resource_affix}--google-application-credentials--${var.environment}"
         items {
           version = "latest"
-          path = "google-application-credentials"
+          path    = "google-application-credentials"
         }
       }
     }
@@ -35,12 +35,12 @@ resource "google_cloud_run_v2_service" "server" {
       image = "us-docker.pkg.dev/cloudrun/container/hello"
 
       volume_mounts {
-        name = "cloudsql"
+        name       = "cloudsql"
         mount_path = "/cloudsql"
       }
 
       volume_mounts {
-        name = "credentials"
+        name       = "credentials"
         mount_path = "/secrets"
       }
 
@@ -50,7 +50,7 @@ resource "google_cloud_run_v2_service" "server" {
           name = upper(replace(env.value, "-", "_"))
           value_source {
             secret_key_ref {
-              secret = "${var.resource_affix}--${env.value}--${var.environment}"
+              secret  = "${var.resource_affix}--${env.value}--${var.environment}"
               version = "latest"
             }
           }
@@ -58,37 +58,37 @@ resource "google_cloud_run_v2_service" "server" {
       }
 
       env {
-        name = "DJANGO_SETTINGS_MODULE"
+        name  = "DJANGO_SETTINGS_MODULE"
         value = "server.settings.main"
       }
 
       env {
-        name = "GCP_ENVIRONMENT"
+        name  = "GCP_ENVIRONMENT"
         value = var.environment
       }
 
       env {
-        name = "GCP_REGION"
+        name  = "GCP_REGION"
         value = var.region
       }
 
       env {
-        name = "GCP_RESOURCE_AFFIX"
+        name  = "GCP_RESOURCE_AFFIX"
         value = var.resource_affix
       }
 
       env {
-        name = "GCP_TASKS_DEFAULT_QUEUE_NAME"
+        name  = "GCP_TASKS_DEFAULT_QUEUE_NAME"
         value = google_cloud_tasks_queue.default.name
       }
 
       env {
-        name = "GCP_TASKS_RESOURCE_AFFIX"
+        name  = "GCP_TASKS_RESOURCE_AFFIX"
         value = "${var.resource_affix}--${var.environment}"
       }
 
       env {
-        name = "GOOGLE_APPLICATION_CREDENTIALS"
+        name  = "GOOGLE_APPLICATION_CREDENTIALS"
         value = "/secrets/google-application-credentials"
       }
 
@@ -104,7 +104,7 @@ resource "google_cloud_run_v2_service" "server" {
 
   # Ignored for subsequent releases by GitHub Actions
   traffic {
-    type = "TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST"
+    type    = "TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST"
     percent = 100
   }
 
@@ -130,17 +130,17 @@ resource "google_cloud_run_v2_service" "server" {
 
 # Set authentication to allow unauthorized invocations
 resource "google_cloud_run_service_iam_member" "public_invoker" {
-  service    = google_cloud_run_v2_service.server.name
-  location   = var.region
-  role       = "roles/run.invoker"
-  member     = "allUsers"
+  service  = google_cloud_run_v2_service.server.name
+  location = var.region
+  role     = "roles/run.invoker"
+  member   = "allUsers"
 }
 
 
 resource "google_cloud_run_v2_job" "manager" {
-  name     = "${var.resource_affix}--manager--${var.environment}"
-  project  = var.project
-  location = var.region
+  name                = "${var.resource_affix}--manager--${var.environment}"
+  project             = var.project
+  location            = var.region
   deletion_protection = var.deletion_protection
 
   template {
@@ -164,7 +164,7 @@ resource "google_cloud_run_v2_job" "manager" {
           secret = "${var.resource_affix}--google-application-credentials--${var.environment}"
           items {
             version = "latest"
-            path = "google-application-credentials"
+            path    = "google-application-credentials"
           }
         }
       }
@@ -177,12 +177,12 @@ resource "google_cloud_run_v2_job" "manager" {
         args = ["check"]
 
         volume_mounts {
-          name = "cloudsql"
+          name       = "cloudsql"
           mount_path = "/cloudsql"
         }
 
         volume_mounts {
-          name = "credentials"
+          name       = "credentials"
           mount_path = "/secrets"
         }
 
@@ -192,7 +192,7 @@ resource "google_cloud_run_v2_job" "manager" {
             name = upper(replace(env.value, "-", "_"))
             value_source {
               secret_key_ref {
-                secret = "${var.resource_affix}--${env.value}--${var.environment}"
+                secret  = "${var.resource_affix}--${env.value}--${var.environment}"
                 version = "latest"
               }
             }
@@ -200,37 +200,37 @@ resource "google_cloud_run_v2_job" "manager" {
         }
 
         env {
-          name = "DJANGO_SETTINGS_MODULE"
+          name  = "DJANGO_SETTINGS_MODULE"
           value = "server.settings.main"
         }
 
         env {
-          name = "GCP_ENVIRONMENT"
+          name  = "GCP_ENVIRONMENT"
           value = var.environment
         }
 
         env {
-          name = "GCP_REGION"
+          name  = "GCP_REGION"
           value = var.region
         }
 
         env {
-          name = "GCP_RESOURCE_AFFIX"
+          name  = "GCP_RESOURCE_AFFIX"
           value = var.resource_affix
         }
 
         env {
-          name = "GCP_TASKS_DEFAULT_QUEUE_NAME"
+          name  = "GCP_TASKS_DEFAULT_QUEUE_NAME"
           value = google_cloud_tasks_queue.default.name
         }
 
         env {
-          name = "GCP_TASKS_RESOURCE_AFFIX"
+          name  = "GCP_TASKS_RESOURCE_AFFIX"
           value = "${var.resource_affix}--${var.environment}"
         }
 
         env {
-          name = "GOOGLE_APPLICATION_CREDENTIALS"
+          name  = "GOOGLE_APPLICATION_CREDENTIALS"
           value = "/secrets/google-application-credentials"
         }
 

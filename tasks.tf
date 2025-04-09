@@ -12,15 +12,15 @@ locals {
 
 
 resource "google_cloud_tasks_queue" "default" {
-  name      = "${var.resource_affix}--default${local.queue_suffix}--${var.environment}"
-  location  = var.region
+  name     = "${var.resource_affix}--default${local.queue_suffix}--${var.environment}"
+  location = var.region
 }
 
 
 resource "google_cloud_tasks_queue_iam_member" "default_queue_task_create" {
   for_each = local.service_account_emails
-  name = google_cloud_tasks_queue.default.name
+  name     = google_cloud_tasks_queue.default.name
   location = google_cloud_tasks_queue.default.location
-  role = "roles/cloudtasks.enqueuer"
-  member = each.value
+  role     = "roles/cloudtasks.enqueuer"
+  member   = each.value
 }

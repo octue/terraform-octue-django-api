@@ -17,7 +17,7 @@ variable "resource_affix" {
 
 
 variable "environment" {
-  type = string
+  type    = string
   default = "main"
 }
 
@@ -25,7 +25,7 @@ variable "environment" {
 variable "secret_names" {
   description = "A list of secrets to be created and made accessible to the cloud run instance."
   type        = set(string)
-  default     = [
+  default = [
     "django-secret-key",
     "database-proxy-url",
     "database-url",
@@ -35,12 +35,12 @@ variable "secret_names" {
 
 
 variable "tasks_queue_suffix" {
-  type = string
+  type    = string
   default = ""
 }
 
 
 variable "deletion_protection" {
-  type = bool
+  type    = bool
   default = false
 }
