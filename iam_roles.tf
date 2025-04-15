@@ -9,7 +9,7 @@ locals {
 
 resource "google_project_iam_member" "iam__service_account_user" {
   for_each = local.service_account_emails
-  project  = var.project
+  project  = var.google_cloud_project_id
   role     = "roles/iam.serviceAccountUser"
   member   = each.value
 }
@@ -20,7 +20,7 @@ resource "google_project_iam_member" "iam__service_account_user" {
 #   https://stackoverflow.com/questions/65628822/google-cloud-run-can-a-service-know-its-own-url/65634104#65634104
 resource "google_project_iam_member" "run__developer" {
   for_each = local.service_account_emails
-  project  = var.project
+  project  = var.google_cloud_project_id
   role     = "roles/run.developer"
   member   = each.value
 }
@@ -28,14 +28,14 @@ resource "google_project_iam_member" "run__developer" {
 
 resource "google_project_iam_member" "storage__object_admin" {
   for_each = local.service_account_emails
-  project  = var.project
+  project  = var.google_cloud_project_id
   role     = "roles/storage.objectAdmin"
   member   = each.value
 }
 
 
 resource "google_project_iam_member" "error_reporting__writer" {
-  project = var.project
+  project = var.google_cloud_project_id
   role    = "roles/errorreporting.writer"
   member  = "serviceAccount:${google_service_account.server_service_account.email}"
 }
@@ -43,7 +43,7 @@ resource "google_project_iam_member" "error_reporting__writer" {
 
 resource "google_project_iam_member" "cloudsql__client" {
   for_each = local.service_account_emails
-  project  = var.project
+  project  = var.google_cloud_project_id
   role     = "roles/cloudsql.client"
   member   = each.value
 }
@@ -77,7 +77,7 @@ resource "google_project_iam_member" "cloudsql__client" {
 # Allow django-gcp.tasks to create periodic tasks in google cloud scheduler
 resource "google_project_iam_member" "cloudscheduler__admin" {
   for_each = local.service_account_emails
-  project  = var.project
+  project  = var.google_cloud_project_id
   role     = "roles/cloudscheduler.admin"
   member   = each.value
 }
@@ -86,7 +86,7 @@ resource "google_project_iam_member" "cloudscheduler__admin" {
 # Allow the server to pull
 resource "google_project_iam_member" "secretmanager__secret_accessor" {
   for_each = local.service_account_emails
-  project  = var.project
+  project  = var.google_cloud_project_id
   role     = "roles/secretmanager.secretAccessor"
   member   = each.value
 }

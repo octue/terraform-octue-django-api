@@ -1,10 +1,10 @@
-variable "project" {
+variable "google_cloud_project_id" {
   type        = string
   description = "The ID of the GCP project to deploy in."
 }
 
 
-variable "region" {
+variable "google_cloud_region" {
   type        = string
   description = "The GCP region to deploy in"
 }

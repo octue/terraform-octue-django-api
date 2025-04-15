@@ -1,7 +1,7 @@
 resource "google_sql_database_instance" "postgres_instance" {
   name                = "${var.resource_affix}--dbinstance--${var.environment}"
-  project             = var.project
-  region              = var.region
+  project             = var.google_cloud_project_id
+  region              = var.google_cloud_region
   database_version    = "POSTGRES_16"
   deletion_protection = var.deletion_protection
   settings {

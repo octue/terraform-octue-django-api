@@ -13,7 +13,7 @@ locals {
 
 resource "google_cloud_tasks_queue" "default" {
   name     = "${var.resource_affix}--default${local.queue_suffix}--${var.environment}"
-  location = var.region
+  location = var.google_cloud_region
 }
 
 

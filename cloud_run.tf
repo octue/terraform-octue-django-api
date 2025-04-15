@@ -1,7 +1,7 @@
 resource "google_cloud_run_v2_service" "server" {
   name     = "${var.resource_affix}--server--${var.environment}"
-  project  = var.project
-  location = var.region
+  project  = var.google_cloud_project_id
+  location = var.google_cloud_region
 
   ingress             = "INGRESS_TRAFFIC_ALL"
   deletion_protection = var.deletion_protection
@@ -69,7 +69,7 @@ resource "google_cloud_run_v2_service" "server" {
 
       env {
         name  = "GCP_REGION"
-        value = var.region
+        value = var.google_cloud_region
       }
 
       env {
@@ -131,7 +131,7 @@ resource "google_cloud_run_v2_service" "server" {
 # Set authentication to allow unauthorized invocations
 resource "google_cloud_run_service_iam_member" "public_invoker" {
   service  = google_cloud_run_v2_service.server.name
-  location = var.region
+  location = var.google_cloud_region
   role     = "roles/run.invoker"
   member   = "allUsers"
 }
@@ -139,8 +139,8 @@ resource "google_cloud_run_service_iam_member" "public_invoker" {
 
 resource "google_cloud_run_v2_job" "manager" {
   name                = "${var.resource_affix}--manager--${var.environment}"
-  project             = var.project
-  location            = var.region
+  project             = var.google_cloud_project_id
+  location            = var.google_cloud_region
   deletion_protection = var.deletion_protection
 
   template {
@@ -211,7 +211,7 @@ resource "google_cloud_run_v2_job" "manager" {
 
         env {
           name  = "GCP_REGION"
-          value = var.region
+          value = var.google_cloud_region
         }
 
         env {

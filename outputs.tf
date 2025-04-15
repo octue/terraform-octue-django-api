@@ -2,7 +2,7 @@ locals {
   django = {
     GCP_RESOURCE_AFFIX = var.resource_affix
     GCP_ENVIRONMENT    = var.environment
-    GCP_PROJECT_ID     = var.project
+    GCP_PROJECT_ID     = var.google_cloud_project_id
   }
 }
 

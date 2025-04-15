@@ -14,7 +14,7 @@ locals {
 
 resource "google_project_service" "services" {
   for_each           = local.services
-  project            = var.project
+  project            = var.google_cloud_project_id
   service            = each.value
   disable_on_destroy = false
 
