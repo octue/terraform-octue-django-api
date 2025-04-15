@@ -42,7 +42,7 @@ the final hyphen. This supports uniquely named environments in Terraform Cloud (
 organisation) while keeping the environment prefix short but unique within your GCP project. For this to work well, 
 ensure your Terraform workspace names are slugified.
 
-For example, if your resource affix was "my-project" and your Terraform workspace was called `my-project-testing`, the 
+For example, if your resource affix was `my-project` and your Terraform workspace was called `my-project-testing`, the 
 environment would be called `testing` and your resources would be named like this:
 - Cloud Run service: `"my-project--server--testing"`
 - Database: `"my-project--dbinstance--testing"`
@@ -168,9 +168,9 @@ See [`variables.tf`](/variables.tf) for descriptions.
 
 # Output reference
 
-| Name                     | Type     |
-|--------------------------|----------|
-| `django_json`            | `string` | 
-| `server_service_account` | `string` | 
+| Name                     | Type                                            |
+|--------------------------|-------------------------------------------------|
+| `django_json`            | `string`                                        | 
+| `server_service_account` | `google_service_account.server_service_account` | 
 
 See [`outputs.tf`](/outputs.tf) for descriptions.
