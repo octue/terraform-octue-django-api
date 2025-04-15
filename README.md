@@ -2,8 +2,13 @@
 > This Terraform module must be deployed alongside the [terraform-octue-django-api-buckets](https://github.com/octue/terraform-octue-django-api-buckets)
 > module.
 
+# terraform-octue-django-api
+A Terraform module for deploying a Django API server on Google Cloud Run.
+
+
 # Infrastructure
-These resources are automatically deployed:
+Deploying this module creates a set of API infrastructure for an environment. This infrastructure is [isolated from 
+other environments' infrastructure](#environments). These resources are automatically deployed:
 - A Cloud Run service and job
 - An artifact registry repository for storing server images
 - A Google Cloud SQL PostgreSQL database
@@ -11,6 +16,7 @@ These resources are automatically deployed:
 - A number of secrets in Google Secret Manager
 - A Google Cloud Tasks queue
 - An IAM service account and roles for the Cloud Run service and job
+
 
 # Installation and usage
 Add the below blocks to your Terraform configuration and run:
@@ -24,6 +30,23 @@ If you're happy with the plan, run:
 terraform apply
 ```
 and approve the run.
+
+
+## Environments
+The suggested way of managing environments is via [Terraform workspaces](https://developer.hashicorp.com/terraform/language/state/workspaces).
+You can get started right away with the `main` environment by removing the `environment` input to the module. 
+
+To create and used other environments, see the example configuration below. It contains a `locals` block that 
+automatically generates the environment name from the name of the current Terraform workspace by taking the text after 
+the final hyphen. This supports uniquely named environments in Terraform Cloud (which must be unique within the 
+organisation) while keeping the environment prefix short but unique within your GCP project. For this to work well, 
+ensure your Terraform workspace names are slugified.
+
+For example, if your resource affix was "my-project" and your Terraform workspace was called `my-project-testing`, the 
+environment would be called `testing` and your resources would be named like this:
+- Cloud Run service: `"my-project--server--testing"`
+- Database: `"my-project--dbinstance--testing"`
+
 
 ## Example configuration
 
@@ -102,6 +125,7 @@ variable "resource_affix" {
   - The Cloud Resource Manager API must be [enabled manually](https://console.developers.google.com/apis/api/cloudresourcemanager.googleapis.com) 
     before using the module
   - All other required google cloud APIs are enabled automatically by the module 
+
 
 ## Authentication
 The module needs to authenticate with google cloud before it can be used:
