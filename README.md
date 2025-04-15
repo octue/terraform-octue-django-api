@@ -10,7 +10,6 @@ A Terraform module for deploying a Django API server on Google Cloud Run.
 Deploying this module creates a set of API infrastructure for a cloud environment. This infrastructure is [isolated 
 from other environments' infrastructure](#environments). These resources are automatically deployed:
 - A Cloud Run service and job
-- An artifact registry repository for storing server images
 - A Google Cloud SQL PostgreSQL database
 - A load balancer and external IP address 
 - A number of empty secrets in Google Secret Manager
@@ -66,8 +65,8 @@ terraform {
 
 
 provider "google" {
-  project     = var.project
-  region      = var.region
+  project     = var.google_cloud_project_id
+  region      = var.google_cloud_region
 }
 
 
@@ -80,8 +79,8 @@ locals {
 
 module "octue_django_api" {
   source = "git::github.com/octue/terraform-octue-django-api.git?ref=0.1.0"
-  project = var.project
-  region = var.region
+  project = var.google_cloud_project_id
+  region = var.google_cloud_region
   resource_affix = var.resource_affix
   environment = local.environment
 }
@@ -90,7 +89,7 @@ module "octue_django_api" {
 module "octue_django_api_buckets" {
   source = "git::github.com/octue/terraform-octue-django-api-buckets.git?ref=0.1.0"
   server_service_account_email = module.octue_django_api.server_service_account.email
-  project = var.project
+  project = var.google_cloud_project_id
   resource_affix = var.resource_affix
   environment = local.environment
 }
@@ -99,13 +98,13 @@ module "octue_django_api_buckets" {
 ```terraform
 # variables.tf
 
-variable "project" {
+variable "google_cloud_project_id" {
   type    = string
   default = "<your-google-project-id>"
 }
 
 
-variable "region" {
+variable "google_cloud_region" {
   type    = string
   default = "<your-google-project-region>"
 }
