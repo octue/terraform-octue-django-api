@@ -1,20 +1,17 @@
 variable "project" {
   type        = string
-  default     = "bezier-app"
   description = "The ID of the GCP project to deploy in."
 }
 
 
 variable "region" {
   type        = string
-  default     = "europe-west1"
   description = "The GCP region to deploy in"
 }
 
 
 variable "resource_affix" {
   type        = string
-  default     = "bezier"
   description = "The affix to add to each resource controlled by this module."
 }
 
