@@ -7,8 +7,8 @@ A Terraform module for deploying a Django API server on Google Cloud Run.
 
 
 # Infrastructure
-Deploying this module creates a set of API infrastructure for an environment. This infrastructure is [isolated from 
-other environments' infrastructure](#environments). These resources are automatically deployed:
+Deploying this module creates a set of API infrastructure for a cloud environment. This infrastructure is [isolated 
+from other environments' infrastructure](#environments). These resources are automatically deployed:
 - A Cloud Run service and job
 - An artifact registry repository for storing server images
 - A Google Cloud SQL PostgreSQL database
