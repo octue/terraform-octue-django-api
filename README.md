@@ -13,7 +13,7 @@ other environments' infrastructure](#environments). These resources are automati
 - An artifact registry repository for storing server images
 - A Google Cloud SQL PostgreSQL database
 - A load balancer and external IP address 
-- A number of secrets in Google Secret Manager
+- A number of empty secrets in Google Secret Manager
 - A Google Cloud Tasks queue
 - An IAM service account and roles for the Cloud Run service and job
 
@@ -29,7 +29,7 @@ If you're happy with the plan, run:
 ```shell
 terraform apply
 ```
-and approve the run.
+and approve the run. Make sure to populate any secrets in the Secret Manager.
 
 
 ## Environments
