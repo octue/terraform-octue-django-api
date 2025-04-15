@@ -44,6 +44,6 @@ variable "tasks_queue_name_suffix" {
 
 variable "deletion_protection" {
   type        = bool
-  default     = false
+  default     = true
   description = "If `true`, disallow deletion of the database and Cloud Run services. `terraform apply` must be run after setting this to `false` before `terraform destroy` will work."
 }
