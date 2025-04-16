@@ -18,9 +18,8 @@ resource "google_cloud_tasks_queue" "default" {
 
 
 resource "google_cloud_tasks_queue_iam_member" "default_queue_task_create" {
-  for_each = local.service_account_emails
   name     = google_cloud_tasks_queue.default.name
   location = google_cloud_tasks_queue.default.location
   role     = "roles/cloudtasks.enqueuer"
-  member   = each.value
+  member   = local.server_service_account_email
 }

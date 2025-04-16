@@ -11,6 +11,6 @@ resource "google_secret_manager_secret_iam_member" "service_account_secret_acces
   for_each   = google_secret_manager_secret.secrets
   secret_id  = each.value.secret_id
   role       = "roles/secretmanager.secretAccessor"
-  member     = "serviceAccount:${google_service_account.server_service_account.email}"
+  member     = local.server_service_account_email
   depends_on = [google_secret_manager_secret.secrets]
 }

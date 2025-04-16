@@ -23,6 +23,13 @@ variable "environment" {
 }
 
 
+variable "maintainer_service_account_names" {
+  type        = set(string)
+  default     = ["default"]
+  description = "The names of each maintainer IAM service account that should be created. They'll automatically be prefixed with 'maintainer-'."
+}
+
+
 variable "secret_names" {
   description = "A list of secrets to be created and made accessible to the cloud run instance."
   type        = set(string)
