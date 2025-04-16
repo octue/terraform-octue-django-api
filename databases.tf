@@ -8,6 +8,11 @@ resource "google_sql_database_instance" "postgres_instance" {
     edition                     = "ENTERPRISE"
     tier                        = "db-f1-micro"
     deletion_protection_enabled = var.deletion_protection
+
+    database_flags {
+      name  = "max_connections"
+      value = "400"
+    }
   }
   # If we need to execute SQL...
   #   provisioner "local-exec" {
