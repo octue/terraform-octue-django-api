@@ -152,15 +152,16 @@ terraform destroy
 
 # Input reference
 
-| Name                       | Type          | Required | Default                                                                                 |
-|----------------------------|---------------|----------|-----------------------------------------------------------------------------------------| 
-| `google_cloud_project_id`  | `string`      | Yes      | N/A                                                                                     |  
-| `google_cloud_region`      | `string`      | Yes      | N/A                                                                                     | 
-| `resource_affix`           | `string`      | Yes      | N/A                                                                                     |                 
-| `environment`              | `string`      | No       | `"main"`                                                                                |     
-| `secret_names`             | `set(string)` | No       | `set(["django-secret-key", "database-proxy-url", "database-url", "stripe-secret-key"])` |     
-| `tasks_queue_name_suffix`  | `string`      | No       | `""`                                                                                    |     
-| `deletion_protection`      | `bool`        | No       | `true`                                                                                  | 
+| Name                               | Type          | Required | Default                                                                                 |
+|------------------------------------|---------------|----------|-----------------------------------------------------------------------------------------| 
+| `google_cloud_project_id`          | `string`      | Yes      | N/A                                                                                     |  
+| `google_cloud_region`              | `string`      | Yes      | N/A                                                                                     | 
+| `resource_affix`                   | `string`      | Yes      | N/A                                                                                     |                 
+| `environment`                      | `string`      | No       | `"main"`                                                                                |
+| `maintainer_service_account_names` | `set(string)` | No       | `["default"]`                                                                           |
+| `secret_names`                     | `set(string)` | No       | `set(["django-secret-key", "database-proxy-url", "database-url", "stripe-secret-key"])` |     
+| `tasks_queue_name_suffix`          | `string`      | No       | `""`                                                                                    |     
+| `deletion_protection`              | `bool`        | No       | `true`                                                                                  | 
 
 See [`variables.tf`](/variables.tf) for descriptions.
 
