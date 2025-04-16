@@ -13,6 +13,11 @@ resource "google_sql_database_instance" "postgres_instance" {
       name  = "max_connections"
       value = "400"
     }
+
+    backup_configuration {
+      enabled = true
+      point_in_time_recovery_enabled = true
+    }
   }
   # If we need to execute SQL...
   #   provisioner "local-exec" {
