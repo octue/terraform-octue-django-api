@@ -16,6 +16,12 @@ variable "resource_affix" {
 }
 
 
+variable "api_url" {
+  type        = string
+  description = "The URL for the API e.g. 'api.strands.octue.com'"
+}
+
+
 variable "environment" {
   type        = string
   default     = "main"

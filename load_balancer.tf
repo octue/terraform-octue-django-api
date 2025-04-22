@@ -48,7 +48,7 @@ resource "google_compute_managed_ssl_certificate" "ssl" {
 
   managed {
     domains = [
-      "api.bezier.octue.com"
+      var.api_url
     ]
   }
 
