@@ -48,6 +48,13 @@ variable "tasks_queue_name_suffix" {
 }
 
 
+variable "database_tier" {
+  type = string
+  default = "db-f1-micro"
+  description = "The machine type to use for the database."
+}
+
+
 variable "database_availability_type" {
   type    = string
   default = "ZONAL"
