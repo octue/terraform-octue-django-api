@@ -23,13 +23,6 @@ variable "environment" {
 }
 
 
-variable "maintainer_service_account_names" {
-  type        = set(string)
-  default     = ["default"]
-  description = "The names of each maintainer IAM service account that should be created. They'll automatically be prefixed with 'maintainer-'."
-}
-
-
 variable "secret_names" {
   description = "A list of secrets to be created and made accessible to the cloud run instance."
   type        = set(string)
@@ -46,6 +39,24 @@ variable "tasks_queue_name_suffix" {
   type        = string
   default     = ""
   description = "An optional suffix to be added to the resource name of the task queue. Only use when attempting to recreate a queue after it has been deleted as a queue with the same name cannot be created within 7 days."
+}
+
+
+variable "database_availability_type" {
+  type    = string
+  default = "ZONAL"
+  validation {
+    condition     = length(regexall("^(ZONAL|REGIONAL)$", var.database_availability_type)) > 0
+    error_message = "ERROR: Valid types are \"ZONAL\" and \"REGIONAL\"."
+  }
+  description = "Must be one of 'ZONAL' (low availability) and 'REGIONAL' (high availability)."
+}
+
+
+variable "maintainer_service_account_names" {
+  type        = set(string)
+  default     = ["default"]
+  description = "The names of each maintainer IAM service account that should be created. They'll automatically be prefixed with 'maintainer-'."
 }
 
 

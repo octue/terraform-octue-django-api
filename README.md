@@ -78,7 +78,7 @@ locals {
 
 
 module "octue_django_api" {
-  source = "git::github.com/octue/terraform-octue-django-api.git?ref=0.1.0"
+  source = "git::github.com/octue/terraform-octue-django-api.git?ref=0.2.0"
   project = var.google_cloud_project_id
   region = var.google_cloud_region
   resource_affix = var.resource_affix
@@ -158,9 +158,10 @@ terraform destroy
 | `google_cloud_region`              | `string`      | Yes      | N/A                                                                                     | 
 | `resource_affix`                   | `string`      | Yes      | N/A                                                                                     |                 
 | `environment`                      | `string`      | No       | `"main"`                                                                                |
-| `maintainer_service_account_names` | `set(string)` | No       | `["default"]`                                                                           |
 | `secret_names`                     | `set(string)` | No       | `set(["django-secret-key", "database-proxy-url", "database-url", "stripe-secret-key"])` |     
-| `tasks_queue_name_suffix`          | `string`      | No       | `""`                                                                                    |     
+| `tasks_queue_name_suffix`          | `string`      | No       | `""`                                                                                    |
+| `database_availability_type`       | `string`      | No       | `"ZONAL"`                                                                               | 
+| `maintainer_service_account_names` | `set(string)` | No       | `["default"]`                                                                           |
 | `deletion_protection`              | `bool`        | No       | `true`                                                                                  | 
 
 See [`variables.tf`](/variables.tf) for descriptions.

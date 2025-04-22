@@ -8,23 +8,23 @@ locals {
 
 
 resource "google_project_iam_member" "iam__service_account_user" {
-  project  = var.google_cloud_project_id
-  role     = "roles/iam.serviceAccountUser"
-  member   = local.server_service_account_email
+  project = var.google_cloud_project_id
+  role    = "roles/iam.serviceAccountUser"
+  member  = local.server_service_account_email
 }
 
 
 resource "google_project_iam_member" "run__developer" {
-  project  = var.google_cloud_project_id
-  role     = "roles/run.developer"
-  member   = local.server_service_account_email
+  project = var.google_cloud_project_id
+  role    = "roles/run.developer"
+  member  = local.server_service_account_email
 }
 
 
 resource "google_project_iam_member" "storage__object_admin" {
-  project  = var.google_cloud_project_id
-  role     = "roles/storage.objectAdmin"
-  member   = local.server_service_account_email
+  project = var.google_cloud_project_id
+  role    = "roles/storage.objectAdmin"
+  member  = local.server_service_account_email
 }
 
 
@@ -36,9 +36,9 @@ resource "google_project_iam_member" "error_reporting__writer" {
 
 
 resource "google_project_iam_member" "cloudsql__client" {
-  project  = var.google_cloud_project_id
-  role     = "roles/cloudsql.client"
-  member   = local.server_service_account_email
+  project = var.google_cloud_project_id
+  role    = "roles/cloudsql.client"
+  member  = local.server_service_account_email
 }
 
 
@@ -48,9 +48,9 @@ resource "google_project_iam_member" "cloudsql__client" {
 #  - https://cloud.google.com/sql/docs/mysql/iam-permissions
 resource "google_project_iam_member" "cloudsql_maintainers" {
   for_each = local.maintainer_service_account_emails
-  project = var.google_cloud_project_id
-  role    = "roles/cloudsql.editor"
-  member = each.value
+  project  = var.google_cloud_project_id
+  role     = "roles/cloudsql.editor"
+  member   = each.value
 }
 
 
@@ -66,15 +66,15 @@ resource "google_project_iam_member" "cloudsql_maintainers" {
 
 # Allow django-gcp.tasks to create periodic tasks in google cloud scheduler
 resource "google_project_iam_member" "cloudscheduler__admin" {
-  project  = var.google_cloud_project_id
-  role     = "roles/cloudscheduler.admin"
-  member   = local.server_service_account_email
+  project = var.google_cloud_project_id
+  role    = "roles/cloudscheduler.admin"
+  member  = local.server_service_account_email
 }
 
 
 # Allow the server to pull secrets.
 resource "google_project_iam_member" "secretmanager__secret_accessor" {
-  project  = var.google_cloud_project_id
-  role     = "roles/secretmanager.secretAccessor"
-  member   = local.server_service_account_email
+  project = var.google_cloud_project_id
+  role    = "roles/secretmanager.secretAccessor"
+  member  = local.server_service_account_email
 }

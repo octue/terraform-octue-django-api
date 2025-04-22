@@ -14,15 +14,17 @@ resource "google_sql_database_instance" "postgres_instance" {
       value = "400"
     }
 
+    insights_config {
+      query_insights_enabled = true
+    }
+
+    availability_type = var.database_availability_type
+
     backup_configuration {
-      enabled = true
+      enabled                        = true
       point_in_time_recovery_enabled = true
     }
   }
-  # If we need to execute SQL...
-  #   provisioner "local-exec" {
-  #     command = "PGPASSWORD=<password> psql -f schema.sql -p <port> -U <username> <databasename>"
-  #   }
 
   timeouts {}
 }
