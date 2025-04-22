@@ -14,6 +14,10 @@ resource "google_sql_database_instance" "postgres_instance" {
       value = "400"
     }
 
+    insights_config {
+      query_insights_enabled = true
+    }
+
     backup_configuration {
       enabled = true
       point_in_time_recovery_enabled = true
