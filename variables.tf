@@ -47,7 +47,7 @@ variable "database_availability_type" {
   default = "ZONAL"
   validation {
     condition     = length(regexall("^(ZONAL|REGIONAL)$", var.database_availability_type)) > 0
-    error_message = "ERROR: Valid types are \"ZONAL\" and \"REGIONAL\"!"
+    error_message = "ERROR: Valid types are \"ZONAL\" and \"REGIONAL\"."
   }
   description = "Must be one of 'ZONAL' (low availability) and 'REGIONAL' (high availability)."
 }
