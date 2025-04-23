@@ -22,6 +22,12 @@ variable "api_url" {
 }
 
 
+variable "maintainer_service_account_emails" {
+  type        = set(string)
+  description = "The email addresses of the maintainers' IAM service accounts."
+}
+
+
 variable "environment" {
   type        = string
   default     = "main"
@@ -63,13 +69,6 @@ variable "database_availability_type" {
     error_message = "ERROR: Valid types are \"ZONAL\" and \"REGIONAL\"."
   }
   description = "Must be one of 'ZONAL' (low availability) and 'REGIONAL' (high availability)."
-}
-
-
-variable "maintainer_service_account_names" {
-  type        = set(string)
-  default     = ["default"]
-  description = "The names of each maintainer IAM service account that should be created. They'll automatically be prefixed with 'maintainer-'."
 }
 
 

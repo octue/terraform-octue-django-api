@@ -1,9 +1,8 @@
 locals {
   server_service_account_email = "serviceAccount:${google_service_account.server_service_account.email}"
   maintainer_service_account_emails = toset(
-    [for account in google_service_account.maintainers : "serviceAccount:${account.email}"]
+    [for email in var.maintainer_service_account_emails : "serviceAccount:${email}"]
   )
-  all_service_account_emails = setunion(toset([local.server_service_account_email]), local.maintainer_service_account_emails)
 }
 
 
