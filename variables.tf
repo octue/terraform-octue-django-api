@@ -57,7 +57,7 @@ variable "minimum_instances" {
 variable "maximum_instances" {
   type = number
   default = 10
-  description = "The maximum number of instances for the Cloud Run service (set at the service level, not revision level)."
+  description = "The maximum number of instances for the Cloud Run service (set at the revision level, not service level)."
 }
 
 
