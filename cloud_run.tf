@@ -6,12 +6,15 @@ resource "google_cloud_run_v2_service" "server" {
   ingress             = "INGRESS_TRAFFIC_ALL"
   deletion_protection = var.deletion_protection
 
+  # These min/max instance counts are set at the *service* level, not the *revision* level. See here for more info:
+  # https://cloud.google.com/run/docs/configuring/min-instances#revisions
+  scaling {
+    min_instance_count = var.minimum_instances
+    max_instance_count = var.maximum_instances
+  }
+
   template {
     service_account = google_service_account.server_service_account.email
-
-    scaling {
-      max_instance_count = 10
-    }
 
     volumes {
       name = "cloudsql"

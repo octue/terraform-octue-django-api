@@ -47,6 +47,20 @@ variable "secret_names" {
 }
 
 
+variable "minimum_instances" {
+  type = number
+  default = 0
+  description = "The minimum number of instances for the Cloud Run service (set at the service level, not revision level)."
+}
+
+
+variable "maximum_instances" {
+  type = number
+  default = 10
+  description = "The maximum number of instances for the Cloud Run service (set at the service level, not revision level)."
+}
+
+
 variable "tasks_queue_name_suffix" {
   type        = string
   default     = ""
