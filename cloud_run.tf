@@ -246,12 +246,14 @@ resource "google_cloud_run_v2_job" "manager" {
   }
 
   lifecycle {
-    ignore_changes = [
-      template[0].template[0].containers[0].args,
-      template[0].template[0].containers[0].image,
-      client,
-      client_version,
-    ]
+    # TODO: The state was stale with revision creating changes
+    # ignore_changes = [
+    #   template[0].template[0].containers[0].args,
+    #   template[0].template[0].containers[0].image,
+    #   client,
+    #   client_version,
+    # ]
+    ignore_changes = all
   }
 
   depends_on = [google_secret_manager_secret.secrets]
