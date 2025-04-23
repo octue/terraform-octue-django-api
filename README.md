@@ -121,6 +121,16 @@ variable "api_url" {
   type    = string
   default = "api.your-org.com" 
 }
+
+
+variable "maintainer_service_account_emails" {
+  type = set(string)
+  default = [
+    "dev1@<your-google-project-id>.iam.gserviceaccount.com",
+    "dev2@<your-google-project-id>.iam.gserviceaccount.com",
+  ]
+}
+
 ```
 
 ## Dependencies
@@ -169,6 +179,8 @@ terraform destroy
 | `environment`                       | `string`      | No       | `"main"`                                                                                |
 | `secret_names`                      | `set(string)` | No       | `set(["django-secret-key", "database-proxy-url", "database-url", "stripe-secret-key"])` |     
 | `tasks_queue_name_suffix`           | `string`      | No       | `""`                                                                                    |
+| `minimum_instances`                 | `number`      | No       | `0`                                                                                     |
+| `maximum_instances`                 | `number`      | No       | `10`                                                                                    |
 | `database_tier`                     | `string`      | No       | `"db-f1-micro"`                                                                         |
 | `database_availability_type`        | `string`      | No       | `"ZONAL"`                                                                               |
 | `deletion_protection`               | `bool`        | No       | `true`                                                                                  | 
