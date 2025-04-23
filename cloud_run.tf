@@ -6,11 +6,17 @@ resource "google_cloud_run_v2_service" "server" {
   ingress             = "INGRESS_TRAFFIC_ALL"
   deletion_protection = var.deletion_protection
 
+  # The min instance count is set at the *service* level, not the *revision* level. See here for more info:
+  # https://cloud.google.com/run/docs/configuring/min-instances#revisions
+  scaling {
+    min_instance_count = var.minimum_instances
+  }
+
   template {
     service_account = google_service_account.server_service_account.email
 
     scaling {
-      max_instance_count = 10
+      max_instance_count = var.maximum_instances
     }
 
     volumes {
@@ -246,12 +252,14 @@ resource "google_cloud_run_v2_job" "manager" {
   }
 
   lifecycle {
-    ignore_changes = [
-      template[0].template[0].containers[0].args,
-      template[0].template[0].containers[0].image,
-      client,
-      client_version,
-    ]
+    # TODO: The state was stale with revision creating changes
+    # ignore_changes = [
+    #   template[0].template[0].containers[0].args,
+    #   template[0].template[0].containers[0].image,
+    #   client,
+    #   client_version,
+    # ]
+    ignore_changes = all
   }
 
   depends_on = [google_secret_manager_secret.secrets]

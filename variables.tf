@@ -16,6 +16,18 @@ variable "resource_affix" {
 }
 
 
+variable "api_url" {
+  type        = string
+  description = "The URL for the API e.g. 'api.strands.octue.com'"
+}
+
+
+variable "maintainer_service_account_emails" {
+  type        = set(string)
+  description = "The email addresses of the maintainers' IAM service accounts."
+}
+
+
 variable "environment" {
   type        = string
   default     = "main"
@@ -35,10 +47,31 @@ variable "secret_names" {
 }
 
 
+variable "minimum_instances" {
+  type = number
+  default = 0
+  description = "The minimum number of instances for the Cloud Run service (set at the service level, not revision level)."
+}
+
+
+variable "maximum_instances" {
+  type = number
+  default = 10
+  description = "The maximum number of instances for the Cloud Run service (set at the revision level, not service level)."
+}
+
+
 variable "tasks_queue_name_suffix" {
   type        = string
   default     = ""
   description = "An optional suffix to be added to the resource name of the task queue. Only use when attempting to recreate a queue after it has been deleted as a queue with the same name cannot be created within 7 days."
+}
+
+
+variable "database_tier" {
+  type = string
+  default = "db-f1-micro"
+  description = "The machine type to use for the database."
 }
 
 
@@ -50,13 +83,6 @@ variable "database_availability_type" {
     error_message = "ERROR: Valid types are \"ZONAL\" and \"REGIONAL\"."
   }
   description = "Must be one of 'ZONAL' (low availability) and 'REGIONAL' (high availability)."
-}
-
-
-variable "maintainer_service_account_names" {
-  type        = set(string)
-  default     = ["default"]
-  description = "The names of each maintainer IAM service account that should be created. They'll automatically be prefixed with 'maintainer-'."
 }
 
 

@@ -78,10 +78,11 @@ locals {
 
 
 module "octue_django_api" {
-  source = "git::github.com/octue/terraform-octue-django-api.git?ref=0.2.0"
+  source = "git::github.com/octue/terraform-octue-django-api.git?ref=0.3.0"
   project = var.google_cloud_project_id
   region = var.google_cloud_region
   resource_affix = var.resource_affix
+  api_url = var.api_url
   environment = local.environment
 }
 
@@ -114,6 +115,22 @@ variable "resource_affix" {
   type    = string
   default = "<name-of-your-api>"
 }
+
+
+variable "api_url" {
+  type    = string
+  default = "api.your-org.com" 
+}
+
+
+variable "maintainer_service_account_emails" {
+  type = set(string)
+  default = [
+    "dev1@<your-google-project-id>.iam.gserviceaccount.com",
+    "dev2@<your-google-project-id>.iam.gserviceaccount.com",
+  ]
+}
+
 ```
 
 ## Dependencies
@@ -152,17 +169,21 @@ terraform destroy
 
 # Input reference
 
-| Name                               | Type          | Required | Default                                                                                 |
-|------------------------------------|---------------|----------|-----------------------------------------------------------------------------------------| 
-| `google_cloud_project_id`          | `string`      | Yes      | N/A                                                                                     |  
-| `google_cloud_region`              | `string`      | Yes      | N/A                                                                                     | 
-| `resource_affix`                   | `string`      | Yes      | N/A                                                                                     |                 
-| `environment`                      | `string`      | No       | `"main"`                                                                                |
-| `secret_names`                     | `set(string)` | No       | `set(["django-secret-key", "database-proxy-url", "database-url", "stripe-secret-key"])` |     
-| `tasks_queue_name_suffix`          | `string`      | No       | `""`                                                                                    |
-| `database_availability_type`       | `string`      | No       | `"ZONAL"`                                                                               | 
-| `maintainer_service_account_names` | `set(string)` | No       | `["default"]`                                                                           |
-| `deletion_protection`              | `bool`        | No       | `true`                                                                                  | 
+| Name                                | Type          | Required | Default                                                                                 |
+|-------------------------------------|---------------|----------|-----------------------------------------------------------------------------------------| 
+| `google_cloud_project_id`           | `string`      | Yes      | N/A                                                                                     |  
+| `google_cloud_region`               | `string`      | Yes      | N/A                                                                                     | 
+| `resource_affix`                    | `string`      | Yes      | N/A                                                                                     |
+| `api_url`                           | `string`      | Yes      | N/A                                                                                     |
+| `maintainer_service_account_emails` | `set(string)` | Yes      | N/A                                                                                     |
+| `environment`                       | `string`      | No       | `"main"`                                                                                |
+| `secret_names`                      | `set(string)` | No       | `set(["django-secret-key", "database-proxy-url", "database-url", "stripe-secret-key"])` |     
+| `tasks_queue_name_suffix`           | `string`      | No       | `""`                                                                                    |
+| `minimum_instances`                 | `number`      | No       | `0`                                                                                     |
+| `maximum_instances`                 | `number`      | No       | `10`                                                                                    |
+| `database_tier`                     | `string`      | No       | `"db-f1-micro"`                                                                         |
+| `database_availability_type`        | `string`      | No       | `"ZONAL"`                                                                               |
+| `deletion_protection`               | `bool`        | No       | `true`                                                                                  | 
 
 See [`variables.tf`](/variables.tf) for descriptions.
 

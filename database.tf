@@ -6,7 +6,7 @@ resource "google_sql_database_instance" "postgres_instance" {
   deletion_protection = var.deletion_protection
   settings {
     edition                     = "ENTERPRISE"
-    tier                        = "db-f1-micro"
+    tier                        = var.database_tier
     deletion_protection_enabled = var.deletion_protection
 
     database_flags {

@@ -8,6 +8,7 @@ resource "google_compute_region_network_endpoint_group" "load_balancer_neg" {
   }
 }
 
+
 resource "google_compute_backend_service" "load_balancer_backend" {
   connection_draining_timeout_sec = 0
   load_balancing_scheme           = "EXTERNAL_MANAGED"
@@ -18,6 +19,16 @@ resource "google_compute_backend_service" "load_balancer_backend" {
   session_affinity                = "NONE"
   timeout_sec                     = 30
   locality_lb_policy              = "ROUND_ROBIN"
+  enable_cdn                      = true
+
+  cdn_policy {
+    cache_mode                   = "CACHE_ALL_STATIC"
+    signed_url_cache_max_age_sec = 3600
+    client_ttl                   = 3600
+    default_ttl                  = 3600
+    max_ttl                      = 86400
+    serve_while_stale            = 86400
+  }
 
   backend {
     balancing_mode               = "UTILIZATION"
@@ -48,7 +59,7 @@ resource "google_compute_managed_ssl_certificate" "ssl" {
 
   managed {
     domains = [
-      "api.bezier.octue.com"
+      var.api_url
     ]
   }
 
